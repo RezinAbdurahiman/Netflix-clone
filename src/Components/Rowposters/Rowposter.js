@@ -52,7 +52,7 @@ function Rowposter(props) {
       }
       </div>
       {
-        YouId ? <Youtube opts={opts} videoId={YouId.key}/> : ""
+        YouId ? <div><div className='topbar'><button className='close' onClick={()=>setYouId(null)}>x</button></div><Youtube opts={opts} videoId={YouId.key}/></div> : ""
       }
     </div>
   )
