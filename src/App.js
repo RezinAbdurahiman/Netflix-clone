@@ -6,29 +6,21 @@ import Rowposter from './Components/Rowposters/Rowposter';
 import { API_KEY } from './Constants/constants';
 import { action, comedy, originals } from './urls';
 import { useEffect, useState } from 'react';
-
-
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
+import Signup from './Pages/Signup';
+import { navigateContext } from './Constants/constants';
 function App() {
-  const [Genres, setGenres] = useState([])
-  useEffect(()=>{
-  axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`).then((res)=>{
-    setGenres(res.data.genres)})
-
-  },[])
-  console.log(Genres)
+const navigate = useNavigate()
   return (
-    <div className="App">
-      <Navbar/>
-      <Banner/>
-      <Rowposter title="Netflix Originals" url={originals} />
-      {
-      Genres.map((genre)=>{
-        return(
-        <Rowposter title={genre.name} url={`/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}`} isSmall />
-      )})
-      
-      }
-    </div>
+    <navigateContext.Provider value={navigate}>
+    <Routes>
+      <Route path='/' element={<Home/>}></Route>
+      <Route path='/login' element={<Login/>}></Route>
+      <Route path='/signup' element={<Signup/>}></Route>
+    </Routes>
+    </navigateContext.Provider>
   );
 }
 
